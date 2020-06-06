@@ -1,0 +1,92 @@
+{% extends path %}
+
+{% block title %}Sample{% endblock %}
+
+{% load template_tags %}
+
+{% block content %}
+
+<h1><i>Build in template tags</i></h1>
+
+<hr>
+
+<a href="{% url 'client' id %}">{% url 'client' id %}</a>
+<a href="{% url 'client' id=5 %}">{% url 'client' id=5 %}</a>
+
+<hr>
+
+{% with alpha=1 beta=2 %}
+  {{alpha}}
+  {{beta}}
+{% endwith %}
+
+<hr>
+
+{% verbatim %}
+    {{if dying}}Still alive.{{/if}}
+{% endverbatim %}
+
+<hr>
+
+{% include './test.html' %}
+
+<hr>
+
+{% templatetag openblock %}
+
+<hr>
+
+{% lorem %}
+
+<hr>
+
+<h2>ifchanged</h2>
+{% for i in list1 %}
+  {% ifchanged %}
+  {{i}}
+  {% endifchanged %}
+{% endfor %}
+
+<hr>
+
+{% for i in list %}
+  <p>{{i}}</p>
+  {{forloop.counter}}
+  {% if forloop.last %}
+    <p>El numero total de elementos es: {{list|length}}</p>
+  {% endif %}
+{% endfor %}
+
+<hr>
+
+{% for i in unexisting_list %}
+  <p>{{i}}</p>
+{% empty %}
+  <p>List dont founded</p>
+{% endfor %}
+
+<hr>
+
+<p>hola que hace {{items1}}</p>
+
+<hr>
+
+<p>{{text|lower}}</p>
+<p>{{text|upper}}</p>
+<p>{{text|text_duplicate}}</p>
+{{text|parameter:3|safe}}
+
+<hr>
+
+{% for i in items %}
+  <p class="text-center">{{i}}{{items}}</p>
+  <p class="text-center">{% cycle 'row1' 'row2' 'row3' as variable %}</p>
+  <p class ="text-center">{{variable}}</p>
+  <p class="text-center">{% cycle variable %}</p>
+{% endfor %}
+
+{% comment "Optional note" %}
+  {% debug %}
+{% endcomment %}
+
+{% endblock %}
